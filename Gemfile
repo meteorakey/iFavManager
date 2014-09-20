@@ -38,3 +38,6 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+
+gem 'omniauth-twitter'
+gem 'figaro', "~> 0.7.0"
