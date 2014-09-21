@@ -41,3 +41,4 @@ gem 'spring',        group: :development
 
 gem 'omniauth-twitter'
 gem 'figaro', "~> 0.7.0"
+gem 'twitter'
