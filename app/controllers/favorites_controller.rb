@@ -12,9 +12,10 @@ def index
                                        :oauth_token => session[:oauth_token],
                                        :oauth_token_secret => session[:oauth_token_secret]
                                        )
-    @message = "test"
-    client.update(:message)
-    @result = :success
+    favorites = client.favorites()
+    favorites.each do |favorite|
+          @result = favorite.text
+    end
   else
     @result = :not_signed_in
   end
