@@ -44,3 +44,7 @@ gem 'figaro', "~> 0.7.0"
 gem 'twitter'
 
 gem 'rails_autolink'
+
+gem 'therubyracer'
+gem 'less-rails'
+gem 'twitter-bootstrap3-rails'

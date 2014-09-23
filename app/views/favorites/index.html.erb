@@ -1,4 +1,5 @@
 <html>
+  <% if @favorites != nil %>
   <div>
     <%= form_tag "favorites/", :method => :delete do %>
     <hr>
@@ -32,4 +33,5 @@
     <%= submit_tag "unfavorite" %>
     <% end %>
   </div>
+  <% end %>
 </html>
