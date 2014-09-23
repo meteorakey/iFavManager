@@ -1,8 +1,29 @@
 <html>
+  <div>
+    <hr>
 
-<div>
-test
-<%= @result %>
-</div>
+    <% @favorites.each do |f| %>
+    <div>
+    <%= image_tag f.user.profile_image_uri %>
+    <%= f.user.name %>
+    <a href=<%= f.user.uri  %> target="_blank">@<%= f.user.screen_name %></a>
+    <%= f.created_at.strftime "%Y/%m/%d %H:%M" %>
+    <br>
+    <%= auto_link f.text, html: {target: "_blank"} %>
+    </div>
 
+    <br>
+
+    <div>
+    <% if f.media? %>
+    <% f.media.each do |m| %>
+    <a href= <%= m.media_url %> target="_blank" ><%= image_tag m.media_url, :height => "320", :width => "auto" %></a>
+    <% end %>
+    <% end %>
+
+    <%= button_to "unfavorite", favorite_path(f.id), :method => "delete" %>
+    </div>
+    <hr>
+    <% end %>
+  </div>
 </html>
