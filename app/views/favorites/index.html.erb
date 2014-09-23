@@ -20,7 +20,7 @@
     <% if f.media? %>
     <div>
     <% f.media.each do |m| %>
-    <a href= <%= m.media_url %> download="sample.jpg" >
+    <a href= <%= m.media_url %> download >
       <%= image_tag m.media_url, :height => "320", :width => "auto" %>
     </a>
     <% end %>
