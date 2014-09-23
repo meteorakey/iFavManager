@@ -12,7 +12,7 @@ class FavoritesController < ApplicationController
                                          :oauth_token => session[:oauth_token],
                                          :oauth_token_secret => session[:oauth_token_secret]
                                          )
-      @favorites = client.favorites(:count => 5)
+      @favorites = client.favorites(:count => 30)
     else
       @result = :not_signed_in
     end
@@ -38,4 +38,5 @@ class FavoritesController < ApplicationController
       redirect_to :action => :index
     end
   end
+
 end
