@@ -1,9 +1,11 @@
 <html>
   <div>
+    <%= form_tag "favorites/", :method => :delete do %>
     <hr>
-
     <% @favorites.each do |f| %>
     <div>
+    <%= hidden_field_tag 'tweets[][id]', f.id %>
+    <%= check_box_tag 'tweets[][flag]' %>
     <%= image_tag f.user.profile_image_uri %>
     <%= f.user.name %>
     <a href=<%= f.user.uri  %> target="_blank">@<%= f.user.screen_name %></a>
@@ -14,16 +16,19 @@
 
     <br>
 
-    <div>
     <% if f.media? %>
+    <div>
     <% f.media.each do |m| %>
-    <a href= <%= m.media_url %> target="_blank" ><%= image_tag m.media_url, :height => "320", :width => "auto" %></a>
+    <a href= <%= m.media_url %> target="_blank" >
+      <%= image_tag m.media_url, :height => "320", :width => "auto" %>
+    </a>
     <% end %>
+    </div>
     <% end %>
 
-    <%= button_to "unfavorite", favorite_path(f.id), :method => "delete" %>
-    </div>
     <hr>
+    <% end %>
+    <%= submit_tag "unfavorite" %>
     <% end %>
   </div>
 </html>

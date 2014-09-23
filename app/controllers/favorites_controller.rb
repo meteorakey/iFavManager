@@ -12,7 +12,7 @@ class FavoritesController < ApplicationController
                                          :oauth_token => session[:oauth_token],
                                          :oauth_token_secret => session[:oauth_token_secret]
                                          )
-      @favorites = client.favorites(:count => 100)
+      @favorites = client.favorites(:count => 5)
     else
       @result = :not_signed_in
     end
@@ -26,28 +26,16 @@ class FavoritesController < ApplicationController
                                          :oauth_token => session[:oauth_token],
                                          :oauth_token_secret => session[:oauth_token_secret]
                                          )
-      client.unfavorite(params[:id])
+      unfavorites = []
+      tweets = params[:tweets]
+      tweets.each do |t|
+        if t[:flag] != nil
+          unfavorites << t[:id]
+        end
+      end
+      #render :text => unfavorites
+      client.unfavorite(unfavorites)
       redirect_to :action => :index
     end
   end
-
-  def create
-
-    # ready filepath
-    fileName = File.basename(params[:id])
-    dirName = "~/"
-    filePath = dirName + fileName
-
-    # create folder if not exist
-    FileUtils.mkdir_p(dirName) unless FileTest.exist?(dirName)
-
-    # write image adata
-    open(filePath, 'wb') do |output|
-      open(url) do |data|
-        output.write(data.read)
-      end
-    end
-    redirect_to :action => :index
-  end
-
 end

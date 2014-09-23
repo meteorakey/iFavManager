@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback' => 'sessions#create'
   get '/signout' => 'sessions#destroy', as: :signout
 
-  resources :favorites, :only => [:index, :destroy, :create]
+  delete 'favorites' => 'favorites#destroy'
+  resources :favorites, :only => [:index, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
