@@ -5,6 +5,7 @@
     <hr>
     <% @favorites.each do |f| %>
     <div>
+    <label>
     <%= hidden_field_tag 'tweets[][id]', f.id %>
     <%= check_box_tag 'tweets[][flag]' %>
     <br>
@@ -14,20 +15,17 @@
     <%= f.created_at.strftime "%Y/%m/%d %H:%M" %>
     <br>
     <%= auto_link f.text, html: {target: "_blank"} %>
-    </div>
 
     <br>
 
     <% if f.media? %>
-    <div>
     <% f.media.each do |m| %>
     <a href= <%= m.media_url %> download >
       <%= image_tag m.media_url, :height => "320", :width => "auto" %>
     </a>
     <% end %>
-    </div>
     <% end %>
-
+    </label>
     <hr>
     <% end %>
     <%= submit_tag "unfavorite" %>
