@@ -1,35 +1,59 @@
 <html>
+  <div id="fav_header" />
+
+  <%# favorites を取得した場合の処理 %>
   <% if @favorites != nil %>
-  <div>
+
+  <div class="fav-list">
+
     <%= form_tag "favorites/", :method => :delete do %>
-    <hr>
+    <% count = 0 %>
+
     <% @favorites.each do |f| %>
-    <div>
-    <label>
-    <%= hidden_field_tag 'tweets[][id]', f.id %>
-    <%= check_box_tag 'tweets[][flag]' %>
-    <br>
-    <%= image_tag f.user.profile_image_uri %>
-    <%= f.user.name %>
-    <a href=<%= f.user.uri  %> target="_blank">@<%= f.user.screen_name %></a>
-    <%= f.created_at.strftime "%Y/%m/%d %H:%M" %>
-    <br>
-    <%= auto_link f.text, html: {target: "_blank"} %>
 
-    <br>
-
-    <% if f.media? %>
-    <% f.media.each do |m| %>
-    <a href= <%= m.media_url %> download >
-      <%= image_tag m.media_url, :height => "320", :width => "auto" %>
-    </a>
-    <% end %>
-    <% end %>
-    </label>
+    <% if count == 0 then %>
     <hr>
+    <div class="row">
+      <% end %>
+
+      <%# 1つの favorite に対しての表示 %>
+      <div class="col-md-6">
+        <label>
+          <%= hidden_field_tag 'tweets[][id]', f.id %>
+          <%= check_box_tag 'tweets[][flag]' %>
+          <br>
+          <%= image_tag f.user.profile_image_uri %>
+          <%= f.user.name %>
+          <a href=<%= f.user.uri  %> target="_blank">@<%= f.user.screen_name %></a>
+          <%= f.created_at.strftime "%Y/%m/%d %H:%M" %>
+          <br>
+          <%= auto_link f.text, html: {target: "_blank"} %>
+          <br>
+          <% if f.media? %>
+          <% f.media.each do |m| %>
+          <a href= <%= m.media_url %> download >
+            <%= image_tag m.media_url, :height => "320", :width => "auto" %>
+          </a>
+          <% end %>
+          <% end %>
+        </label>
+      </div>
+
+      <% if count == 1 then %>
+      <% count = 0 %>
+    </div>
+    <% else %>
+    <% count = count + 1 %>
     <% end %>
-    <%= submit_tag "unfavorite" %>
+
+    <% end %>
+
+    <hr>
+
+    <%= submit_tag "unfavorite", :id => "submit" %>
+    <%= link_to "Top", :anchor => "fav_header" %>
     <% end %>
   </div>
+
   <% end %>
 </html>
